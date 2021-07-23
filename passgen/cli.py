@@ -4,7 +4,7 @@ from .passgen import Password
 
 def main():
     args = parse_cmd_line_arguments()
-    password = Password(args.length)
+    password = Password(args.length, args.no_digits, args.no_symbols)
     password.display_password()
 
 
@@ -19,6 +19,16 @@ def parse_cmd_line_arguments():
         help='the length of the password (defaults to 8)',
         metavar='',
         type=int
+    )
+    parser.add_argument(
+        '--no-digits',
+        action='store_true',
+        help='generate a password without digits'
+    )
+    parser.add_argument(
+        '--no-symbols',
+        action='store_true',
+        help='generate a password without symbols'
     )
 
     return parser.parse_args()
