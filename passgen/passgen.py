@@ -4,7 +4,7 @@ import string
 
 LETTERS = string.ascii_letters
 DIGITS = string.digits
-SPECIAL_CHARS = string.punctuation
+SYMBOLS = string.punctuation
 
 
 class Password:
@@ -24,15 +24,19 @@ class Password:
         Prints the newly generated password to the terminal
     """
 
-    def __init__(self, length):
+    def __init__(self, length, no_digits=False, no_symbols=False):
         """
         Parameters
         ----------
         length : int
             The length of the password
+        no_digits: bool
+            Whether the password must contain digits or not
+        no_symbols: bool
+            Whether the password must contain symbols or not
         """
 
-        self._generator = _PasswordGenerator(length)
+        self._generator = _PasswordGenerator(length, no_digits, no_symbols)
 
     def display_password(self):
         """Prints the newly generated password to the terminal.
@@ -60,6 +64,10 @@ class _PasswordGenerator:
     ----------
     _length : int
         the length of the password to generate
+    _no_digits: bool
+        whether the password must contain digits or not
+    _no_symbols: bool
+        whether the password must contain symbols or not
     _password : str
         the password to be created
 
@@ -69,15 +77,21 @@ class _PasswordGenerator:
         Creates and returns a new password
     """
 
-    def __init__(self, length):
+    def __init__(self, length, no_digits=False, no_symbols=False):
         """
         Parameters
         ----------
         length : int
             The length of the password
+        no_digits: bool
+            Whether the password must contain digits or not
+        no_symbols: bool
+            Whether the password must contain symbols or not
         """
 
         self._length = length
+        self._no_digits = no_digits
+        self._no_symbols = no_symbols
         self._password = ''
 
     def create_password(self):
@@ -93,7 +107,12 @@ class _PasswordGenerator:
             The newly generated password
         """
 
-        all_chars = f'{LETTERS}{DIGITS}{SPECIAL_CHARS}'
+        all_chars = LETTERS
+        if not self._no_digits:
+            all_chars += DIGITS
+        if not self._no_symbols:
+            all_chars += SYMBOLS
+
         self._password = ''.join(secrets.choice(all_chars)
                                  for i in range(self._length))
         return self._password
