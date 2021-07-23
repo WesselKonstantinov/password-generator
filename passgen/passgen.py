@@ -1,6 +1,6 @@
 import secrets
 import string
-
+from rich import print as rprint
 
 LETTERS = string.ascii_letters
 DIGITS = string.digits
@@ -51,7 +51,7 @@ class Password:
         """
 
         password = self._generator.create_password()
-        print(f'Generated the following password: {password}')
+        rprint(f'Generated password: [bold yellow]{password}[/bold yellow]')
 
 
 class _PasswordGenerator:
