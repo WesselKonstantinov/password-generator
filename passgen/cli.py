@@ -6,7 +6,9 @@ def main():
     """Generate password based on command-line arguments."""
     args = parse_cmd_line_arguments()
     password = Password(args.length, args.no_digits, args.no_symbols)
-    password.display_password()
+    password.display()
+    if args.copy:
+        password._generator.copy_password()
 
 
 def parse_cmd_line_arguments():
@@ -23,14 +25,22 @@ def parse_cmd_line_arguments():
         type=int
     )
     parser.add_argument(
+        '-nd',
         '--no-digits',
         action='store_true',
         help='generate a password without digits'
     )
     parser.add_argument(
+        '-ns',
         '--no-symbols',
         action='store_true',
         help='generate a password without symbols'
+    )
+    parser.add_argument(
+        '-c',
+        '--copy',
+        action='store_true',
+        help='copy the password to the clipboard'
     )
 
     return parser.parse_args()

@@ -10,6 +10,7 @@ Classes:
 
 import secrets
 import string
+import pyperclip
 from rich import print as rprint
 
 LETTERS = string.ascii_letters
@@ -30,7 +31,7 @@ class Password:
 
     Methods
     -------
-    display_password()
+    display()
         Prints the newly generated password to the terminal
     """
 
@@ -48,7 +49,7 @@ class Password:
 
         self._generator = _PasswordGenerator(length, no_digits, no_symbols)
 
-    def display_password(self):
+    def display(self):
         """Prints the newly generated password to the terminal.
 
         Parameters
@@ -85,6 +86,8 @@ class _PasswordGenerator:
     -------
     create_password()
         Creates and returns a new password
+    copy_password()
+        Copies the password to the clipboard
     """
 
     def __init__(self, length, no_digits=False, no_symbols=False):
@@ -126,3 +129,18 @@ class _PasswordGenerator:
         self._password = ''.join(secrets.choice(all_chars)
                                  for i in range(self._length))
         return self._password
+
+    def copy_password(self):
+        """Copies the password to the clipboard.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+
+        pyperclip.copy(self._password)
+        rprint('[green]Copied the new password to the clipboard.[/green]')
