@@ -3,12 +3,14 @@ from .passgen import Password
 
 
 def main():
+    """Generate password based on command-line arguments."""
     args = parse_cmd_line_arguments()
     password = Password(args.length, args.no_digits, args.no_symbols)
     password.display_password()
 
 
 def parse_cmd_line_arguments():
+    """Set up parser and command-line arguments."""
     parser = argparse.ArgumentParser(
         description='Random password generator'
     )

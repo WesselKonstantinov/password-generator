@@ -1,3 +1,13 @@
+"""
+This module contains the core functionality for generating random
+passwords.
+
+Classes:
+
+    Password
+    _PasswordGenerator
+"""
+
 import secrets
 import string
 from rich import print as rprint
