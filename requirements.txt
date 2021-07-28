@@ -1,0 +1,8 @@
+autopep8==1.5.7
+colorama==0.4.4
+commonmark==0.9.1
+pycodestyle==2.7.0
+Pygments==2.9.0
+pyperclip==1.8.2
+rich==10.6.0
+toml==0.10.2
